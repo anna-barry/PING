@@ -12,12 +12,10 @@ import java.util.Set;
 public class ProjectClass implements Project {
     @NotNull private final Node rootNode;
     @NotNull private final Set<Aspect> aspects;
-    @NotNull private final Feature feature;
 
-    public ProjectClass(Node rootNode, Set<Aspect> aspects, Feature feature) {
+    public ProjectClass(Node rootNode, Set<Aspect> aspects) {
         this.rootNode = rootNode;
         this.aspects = aspects;
-        this.feature = feature;
     }
 
 
@@ -29,10 +27,5 @@ public class ProjectClass implements Project {
     @Override
     public Set<Aspect> getAspects() {
         return aspects;
-    }
-
-    @Override
-    public Optional<Feature> getFeature(Feature.Type featureType) {
-        return Optional.of(feature);
     }
 }
