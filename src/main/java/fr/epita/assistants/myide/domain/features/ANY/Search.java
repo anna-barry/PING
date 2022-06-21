@@ -1,4 +1,4 @@
-package fr.epita.assistants.myide.domain.features;
+package fr.epita.assistants.myide.domain.features.ANY;
 
 import fr.epita.assistants.myide.domain.entity.Feature;
 import fr.epita.assistants.myide.domain.entity.Mandatory;

@@ -12,7 +12,7 @@ public interface Aspect {
     /**
      * @return The type of the Aspect.
      */
-    Aspect.Type getType();
+    Type getType();
 
     /**
      * @return The list of features associated with the Aspect.
