@@ -16,10 +16,7 @@ public interface NodeService {
      * @return The node that has been updated.
      * @throws Exception upon update failure.
      */
-    Node update(final Node node,
-                final int from,
-                final int to,
-                final byte[] insertedContent);
+    Node update(final Node node, final int from, final int to, final byte[] insertedContent);
 
     /**
      * Delete the node given as parameter.
