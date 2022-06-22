@@ -101,7 +101,7 @@ public class NodeServiceClass implements NodeService {
             e.printStackTrace();
             throw new RuntimeException("Oops, can't create the new Node !");
         }
-        NodeClass res = new NodeClass(newFolderPath, type);
+        NodeClass res = new NodeClass(newFolderPath);
         return res;
     }
 
@@ -111,16 +111,18 @@ public class NodeServiceClass implements NodeService {
         Path newNodeToMove = Path.of(destinationFolder.getPath().toString() + '/' + nodeToMovePath.getFileName()
                 .toString());
         try {
-            if (nodeToMove.isFolder())
+            if (nodeToMove.getType() == Node.Types.FOLDER){
                 FileUtils.moveDirectory(nodeToMovePath.toFile(), newNodeToMove.toFile());
-            else
+            }
+            else{
                 Files.move(nodeToMovePath, newNodeToMove);
+            }
         } catch (FileAlreadyExistsException e) {
             throw new RuntimeException("A file already exists with that name");
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Couldn't move directory");
         }
-        return new NodeClass(newNodeToMove, null);
+        return new NodeClass(newNodeToMove);
     }
 }
