@@ -23,6 +23,16 @@ public class GitPush implements Feature {
             e.printStackTrace();
             return () -> false;
         }
+
+        try
+        {
+            i.push().setForce(false).call();
+        }
+        catch (GitAPIException e)
+        {
+            e.printStackTrace();
+            return () -> false;
+        }
         return () -> true;
     }
 
