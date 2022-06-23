@@ -40,7 +40,7 @@ public class NodeServiceClass implements NodeService {
             }
             fileoutput.write(insertedContent, from, to);
             if (to != content.length){
-                fileoutput.write(content, to, content.length);
+                fileoutput.write(content, to, content.length - to);
             }
         }
         catch (IOException e){
