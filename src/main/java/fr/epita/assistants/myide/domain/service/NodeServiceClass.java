@@ -111,7 +111,7 @@ public class NodeServiceClass implements NodeService {
         Path newNodeToMove = Path.of(destinationFolder.getPath().toString() + '/' + nodeToMovePath.getFileName()
                 .toString());
         try {
-            if (nodeToMove.isFolder())
+            if (nodeToMove.getType() == )
                 FileUtils.moveDirectory(nodeToMovePath.toFile(), newNodeToMove.toFile());
             else
                 Files.move(nodeToMovePath, newNodeToMove);
