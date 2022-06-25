@@ -22,13 +22,13 @@ public class ProjectServiceClass implements ProjectService
     @Override
     public Project load(Path root)
     {
-        File file_or_folder = new File(String.valueOf(root));
+        /*File file_or_folder = new File(String.valueOf(root));
         Node.Types type = Node.Types.FILE;
         if (file_or_folder.isDirectory())
         {
             type = Node.Types.FOLDER;
-        }
-        Node racine = new NodeClass(root, type);
+        }*/
+        Node racine = new NodeClass(root);
         List<Aspect> aspects = new ArrayList<>();
         // Get the type of the project
         List<Node> children = racine.getChildren();

@@ -21,6 +21,16 @@ public class GitPull implements Feature {
             e.printStackTrace();
             return () -> false;
         }
+
+        try
+        {
+            i.pull().call();
+        }
+        catch (GitAPIException e)
+        {
+            e.printStackTrace();
+            return () -> false;
+        }
         return () -> true;
     }
 
