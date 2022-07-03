@@ -1,45 +1,23 @@
-const { app, BrowserWindow, Tray, Menu, globalShortcut} = require('electron')
-const shell = require('electron').shell;
-const path = require("path");
-const ipc = require('electron').ipcMain;
-const nativeImage = require('electron').nativeImage;
+const { app, BrowserWindow, Menu} = require('electron')
+//const nativeImage = require('electron').nativeImage;
 
-
-
-const ipcRend = require('electron').ipcRenderer;
-
-let appIcon = nativeImage.createFromPath(path.join(__dirname, 'img', 'snippetSquare.png'));
+//let appIcon = nativeImage.createFromPath(path.join(__dirname, 'img', 'snippetSquare.png'));
 let win;
-let tray = null;
+
 
 function createWindow() {
 
   win = new BrowserWindow({
-    width: 900,
-    height: 800,
     center: true,
     minHeight: 650,
     minWidth: 600,
-    icon: appIcon,
+    //icon: appIcon,
     frame:false,
+    fullscreen:true,
     backgroundColor: "#16181A"
   });
 
-
-  ipc.on("themeValue", function (event, arg) {
-
-    win.webContents.send("getThemeValue", arg);
-    console.log(arg);
-
-  });
-
-  ipc.on("selectedThemeValue", function (event, arg) {
-    win.webContents.send("setThemeValue", arg);
-
-  });
-
-
-  win.loadFile('html-file/source.html')
+  win.loadFile('index.html')
 
   win.on('closed', () => {
 
@@ -58,6 +36,8 @@ function createWindow() {
 app.on('ready', () => {
   createWindow();
 })
+
+/*
 
 const template = [
   {
@@ -152,6 +132,7 @@ if (process.platform === 'darwin') {
 const menu = Menu.buildFromTemplate(template)
 Menu.setApplicationMenu(menu);
 
+*/
 
 app.on('window-all-closed', () => {
 
