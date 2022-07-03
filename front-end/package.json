@@ -1,0 +1,14 @@
+{
+  "name": "PING",
+  "version": "1.0.0",
+  "description": "IDE project EPITA",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Les Tortues Ninjas",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^19.0.7"
+  }
+}
