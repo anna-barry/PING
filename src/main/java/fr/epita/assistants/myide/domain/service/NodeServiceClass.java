@@ -3,6 +3,7 @@ package fr.epita.assistants.myide.domain.service;
 import fr.epita.assistants.myide.domain.entity.Node;
 import fr.epita.assistants.myide.domain.entity.NodeClass;
 import fr.epita.assistants.myide.domain.service.NodeService;
+import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
 
 import java.io.*;
@@ -15,38 +16,29 @@ import java.io.File;
 public class NodeServiceClass implements NodeService {
 
     @Override
+    @SneakyThrows
     public Node update(Node node, int from, int to, byte[] insertedContent) {
-        if (from < 0 || to < 0){
-            throw new IllegalArgumentException("Oops, can't access negative values !");
+        if (!node.isFile()) {
+            throw new Exception("Update failure not a file");
         }
-        if (node.getType() == Node.Types.FOLDER){
-            throw new IllegalArgumentException("Oops, can't update a folder's content !");
-        }
-        if (to < from){
-            throw new IllegalArgumentException("Oops, you switched your 'from' and 'to' !");
-        }
-        File file = node.getPath().toFile();
-        byte[] content;
-        try (FileInputStream fileinput = new FileInputStream(file)){
-            content = fileinput.readAllBytes();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-            return null;
-        }
-        try (FileOutputStream fileoutput = new FileOutputStream(file)){
-            if (from != 0){
-                fileoutput.write(content, 0, from);
+
+        Path pushingP = node.getPath().toAbsolutePath();
+        byte[] info = Files.readAllBytes(pushingP);
+
+
+        try (FileOutputStream OS = new FileOutputStream(pushingP.toString())) {
+
+            for (int i = 0; i < from; ++i) {
+                OS.write(info[i]);
             }
-            fileoutput.write(insertedContent, from, to);
-            if (to != content.length){
-                fileoutput.write(content, to, content.length - to);
+
+            OS.write(insertedContent);
+
+            for (int i = to; i < info.length; ++i) {
+                OS.write(info[i]);
             }
         }
-        catch (IOException e){
-            e.printStackTrace();
-            return null;
-        }
+
         return node;
     }
 

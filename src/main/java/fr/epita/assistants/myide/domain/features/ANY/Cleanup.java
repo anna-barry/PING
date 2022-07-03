@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class Cleanup implements Feature {
         @Override
@@ -20,18 +21,39 @@ public class Cleanup implements Feature {
 
         @Override
         public ExecutionReport execute(Project project, Object... params) {
+            class Result implements ExecutionReport {
 
-            Optional<Node> empty = project.getRootNode().getChildren().stream()
-                    .filter(node -> node.getPath().getFileName().toString().equals(".myideignore"))
-                    .findAny();
-            if (empty.isEmpty())
-                return () -> false;
-            try {
-                sub(project.getRootNode(),Files.readAllLines(empty.get().getPath()));
-            } catch (IOException e) {
-                return () -> false;
+                public Result(boolean res) {
+                    this.Result_ = res;
+                }
+
+                @Override
+                public boolean isSuccess() {
+                    return Result_;
+                }
+
+                public void setSuccess(boolean res) {
+                    this.Result_ = res;
+                }
+                private boolean Result_;
             }
-            return () -> true;
+            Result report = new Result(false);
+
+            try (Stream<String> stream = Files.lines(Paths.get(project.getRootNode().getPath().toAbsolutePath() + File.separator+ ".myideignore"))) {
+                stream.forEach(file -> {
+                    File f = new File(project.getRootNode().getPath().toAbsolutePath() + File.separator + file);
+
+                    if (!f.isDirectory()) {
+                        f.delete();
+                    } else {
+                        subsub(f);
+                    }
+                });
+            } catch (IOException e) {
+                return report;
+            }
+            report.setSuccess(true);
+            return report;
     }
 
     private void sub(Node node, List<String> l) {
@@ -58,8 +80,8 @@ public class Cleanup implements Feature {
     {
         File[] files = f.listFiles();
         if (files != null) {
-            for (final File file : files)
-                subsub(file);
+            for (File f2 : files)
+                subsub(f2);
         }
         f.delete();
     }
