@@ -1,5 +1,5 @@
 
-body{
+body {
 	background:url("../img/logo.png") no-repeat #1c1f23;
 	background-position:50% 50%;
 }
@@ -45,7 +45,7 @@ body{
 }
 
 .explorerContainer{
-width:215px;
+width:300px;
 }
 
 

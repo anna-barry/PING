@@ -2,31 +2,18 @@
 
 <head>
 
-	<title>PING - New file</title>
+	<title id="title">PING - New file</title>
 
 	<link rel="stylesheet" href="css/codeslate.css">
 	<link rel="stylesheet" href="css/theme.css">
 	<link rel="stylesheet" href="css/titleBar.css">
 	<link rel="stylesheet" href="css/jqueryui.css">
 	<link rel="stylesheet" href="css/customThemeBlock.css">
-
 	<link href="css/menu.css" rel="stylesheet" type="text/css" />
-
 	<link href='css/spectrum.css' rel='stylesheet' type='text/css' />
 
 	<!-- Insert this line above script imports  -->
 	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
-
-	<!-- normal script imports etc  -->
-	<script src="js/libraries/jquery.min.js"></script>
-
-	<script src="js/libraries/jquery.menu.js"></script>
-	<script src="js/libraries/ext-searchbox.js"></script>
-	<script src="js/libraries/ext-beautify.js"></script>
-	<script src="js/libraries/ext-error_marker.js"></script>
-	<script src="js/libraries/ext-spellcheck.js"></script>
-	<script src="js/libraries/jqueryui.js"></script>
-	<script src="js/libraries/fontaw.js"></script>
 
 </head>
 
@@ -43,7 +30,7 @@
 
 	<div class="container">
 
-		<div class="titleBar titleBarStyle">
+		<div class="titleBar titleBarStyle" id="barstyle">
 
 			<div class="windowTitle draggable preventSelect"> <span id='currentFileName'> </span> PING </div>
 
@@ -53,101 +40,6 @@
 				<button id="maximise"> <i class="far fa-window-maximize"></i> </button>
 				<button id="quit"> <i class="fas fa-times"></i> </button>
 
-			</div>
-
-			<div id="menu-bar">
-				<ul class="main-menu">
-					<li>
-						File
-						<ul>
-
-							<li class="icon save" onclick='createNewFile()'><a href="#">New File<span>Ctrl+N</span></a>
-							</li>
-							<li onclick='selectFolder()'>New Folder</li>
-							<li class="separator"></li>
-							<li>Structure Project</li>
-							<li class="separator"></li>
-							<li class="icon save" onclick='saveFile()'><a
-									href="javascript:void(0)">Save<span>Ctrl+S</span></a></li>
-
-							<li class="icon save" onclick="showSaveDialogAndSaveFile()"><a
-									href="javascript:void(0)">Save As</a></li>
-
-							<li class="separator"></li>
-
-						</ul>
-					</li>
-					<li>
-						Edit
-						<ul>
-							<li>Documents
-								<ul>
-									<li>All</li>
-									<li>Closed</li>
-								</ul>
-							</li>
-							<li class="separator"></li>
-							<li>Copy</li>
-							<li>Cut</li>
-							<li>Paste</li>
-							<li>Delete</li>
-						</ul>
-					</li>
-					<li>
-						Window
-						<ul>
-							<li>Dyslexiques</li>
-							<li>Daltoniens</li>
-							<li class="separator"></li>
-							<li>Dark Mode</li>
-							<li>Light Mode</li>
-							<li>Epita Mode</li>
-						</ul>
-					</li>
-
-					<li>
-						Tools
-						<ul>
-							<li>Détecteur de Fatigue DDF
-								<ul>
-									<li>Activation du DDF</li>
-									<li>Statistiques du DDF</li>
-								</ul>
-							</li>
-							<li class="separator"></li>
-							<li>Système de recommandation SDR
-								<ul>
-									<li>Activation du SDR</li>
-									<li>Informations</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>
-						Build
-						<ul>
-							<li>Build Project</li>
-							<li>Rebuild</li>
-							<li class="separator"></li>
-							<li>Version</li>
-						</ul>
-					</li>
-					<li>
-						Run
-						<ul>
-							<li>Run Project</li>
-							<li>Re Run</li>
-							<li class="separator"></li>
-							<li>Version</li>
-						</ul>
-					</li>
-					<li>
-						Help
-						<ul>
-							<li>Contact us</li>
-						</ul>
-					</li>
-				</ul>
 			</div>
 
 		</div>
@@ -163,7 +55,7 @@
 
 				</div>
 
-				<div class="folderFiles">
+				<div class="folderFiles" id="test">
 					<!--all the contents of any folder is shown here-->
 					<div class="folderTitle">
 
@@ -183,35 +75,23 @@
 			</div>
 
 			<div class="editorContainer">
-
+				<textarea class="raw-markdown" id="markdown" spellcheck="false"></textarea>
 			</div>
 
-			<div class="widgetsDrawer">
+			<div class="widgetsDrawer" id="ouep-ici">
 				<div class="widgetLoader">
 
 					<div id='terminalContainer' class='webviewContainer'>
-						<webview id="terminalView" src="https://www.github.com"></webview>
-						<div class="widgetNavigator">
-							<div id='pageLoadProgress'></div>
-						</div>
 					</div>
 
 					<div id='runContainer' class='webviewContainer'>
-						<webview id="runView" src="https://www.github.com"></webview>
-						<div class="widgetNavigator">
-							<div id='pageLoadProgress'></div>
-						</div>
 					</div>
 
 					<div id='mavenContainer' class='webviewContainer'>
-						<webview id="mavenView" src="https://www.github.com"></webview>
-						<div class="widgetNavigator">
-							<div id='pageLoadProgress'></div>
-						</div>
 					</div>
 				</div>
 
-				<div class='widgetsHeader'> <span>X</span></div>
+				<div class='widgetsHeader' id="ouep-ici2"> <span>X</span></div>
 					<button id='terminal' onclick='loadView(id)'></button>
 					<button id='run' onclick='loadView(id)'></button>
 					<button id="maven" onclick='loadView(id)'></button>
@@ -224,15 +104,89 @@
 
 
 	<!-- index.html -->
+	<script>
 
-	<script src='js/libraries/spectrum.js'></script>
-	<script src="js/globalContent.js"></script>
-	<script src="js/titleBarStuff.js"></script>
-	<script src="js/shortcuts.js"></script>
-	<script src="js/codeslate.js"></script>
-	<script src='js/widgetHandler.js'></script>
+		window.api.OpenFile((path, text) => {
+			document.getElementById("markdown").innerHTML = text;
+			document.getElementById("title").innerText = path;
+		})
+	</script>
 
+	<script>
+		window.api.SaveFile(() => {
+			console.log(document.getElementById("markdown").value);
+			return document.getElementById("markdown").value;
+		})
+	</script>
+	<script>
 
+		window.api.Mode_th((args) => {
+			if (args.toString() === "light") {
+				document.body.background = "#FFFFFF";
+				document.body.color = "#000000";
+				document.getElementById("markdown").style.background = "#FFFFFF";
+				document.getElementById("markdown").style.color = "#000000";
+				document.getElementById("resizableExplorer").style.background = "#D1D1D1";
+				document.getElementById("resizableExplorer").style.backgroundImage = "url(./img/logo-light.png)";
+				document.getElementById("resizableExplorer").style.color = "#FFFFFF";
+				document.getElementById("barstyle").style.background = "#D1D1D1";
+				document.getElementById("barstyle").style.color = "#000000";
+				document.getElementById("ouep-ici").style.background = "#D1D1D1";
+				document.getElementById("ouep-ici").style.color = "#000000";
+				document.getElementById("ouep-ici2").style.background = "#D1D1D1";
+				document.getElementById("ouep-ici2").style.color = "#000000";
+				document.getElementById("folderName").style.background = "#FFFFFF";
+				document.getElementById("folderName").style.color = "#000000";
+				document.getElementById("syncFiles").style.background = "#444242";
+				document.getElementById("syncFiles").style.color = "#000000";
+				document.getElementById("test").style.background = "#444242";
+				document.getElementById("test").style.color = "#FFFFFF";
+			}
+			if (args.toString() === "dark"){
+				document.body.background = "#636363";
+				document.body.color = "#FFFFFF";
+				document.getElementById("markdown").style.background = "#313131";
+				document.getElementById("markdown").style.color = "#FFFFFF";
+				document.getElementById("resizableExplorer").style.background = "#636363";
+				document.getElementById("resizableExplorer").style.backgroundImage = "url(./img/logo.png)";
+				document.getElementById("resizableExplorer").style.color = "#FFFFFF";
+				document.getElementById("barstyle").style.background = "#636363";
+				document.getElementById("barstyle").style.color = "#FFFFFF";
+				document.getElementById("ouep-ici").style.background = "#636363";
+				document.getElementById("ouep-ici").style.color = "#000000";
+				document.getElementById("ouep-ici2").style.background = "#636363";
+				document.getElementById("ouep-ici2").style.color = "#000000";
+				document.getElementById("folderName").style.background = "#444242";
+				document.getElementById("folderName").style.color = "#FFFFFF";
+				document.getElementById("changeFolder").style.background = "#D1D1D1";
+				document.getElementById("changeFolder").style.color = "#FFFFFF";
+				document.getElementById("test").style.background = "#D1D1D1";
+				document.getElementById("test").style.color = "#FFFFFF";
+			}
+			if (args.toString() === "epita") {
+				document.body.background = "#0e1e5d";
+				document.body.color = "#FFFFFF";
+				document.getElementById("markdown").style.background = "#05113b";
+				document.getElementById("markdown").style.color = "#FFFFFF";
+				document.getElementById("resizableExplorer").style.background = "#0e1e5d";
+				document.getElementById("resizableExplorer").style.backgroundImage = "url(./img/epita-final.png)";
+				document.getElementById("resizableExplorer").style.color = "#42f50d";
+				document.getElementById("barstyle").style.background = "#0e1e5d";
+				document.getElementById("barstyle").style.color = "#42f50d";
+				document.getElementById("ouep-ici").style.background = "#0e1e5d";
+				document.getElementById("ouep-ici").style.color = "#42f50d";
+				document.getElementById("ouep-ici2").style.background = "#0e1e5d";
+				document.getElementById("ouep-ici2").style.color = "#42f50d";
+				document.getElementById("folderName").style.background = "#05113b";
+				document.getElementById("folderName").style.color = "#FFFFFF";
+				document.getElementById("changeFolder").style.background = "#0e1e5d";
+				document.getElementById("changeFolder").style.color = "#42f50d";
+				document.getElementById("test").style.background = "#102db2";
+				document.getElementById("test").style.color = "#42f50d";
+			}
+		})
+
+	</script>
 
 </body>
 
