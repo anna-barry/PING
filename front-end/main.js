@@ -191,7 +191,7 @@ function createWindow() {
     fullscreen:true,
     frame:true,
     backgroundColor: "#16181A",
-    autoHideMenuBar:false,
+    autoHideMenuBar:true,
     webPreferences: {
       nodeIntegration: true,
       preload: join(__dirname, "./preload.js"),
