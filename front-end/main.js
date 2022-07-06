@@ -3,7 +3,7 @@ const fs = require("fs");
 const ipc = require('electron').ipcMain;
 const {join} = require('path');
 const os = require('os');
-const pty = require('node-pty');
+//const pty = require('node-pty');
 const isMac = process.platform === 'darwin'
 var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
 
@@ -37,8 +37,8 @@ let menu_final =  [
           let files = await dialog.showOpenDialog({
             properties: ['openFile']
           });
-          if (files)
-          {
+
+          if (files) {
             console.log(files);
             path_open = files.filePaths[0];
             window.webContents.send('FILE_OPEN', path_open);
@@ -214,8 +214,9 @@ function createWindow() {
   window.on('ready-to-show', () => {
     window.show();
   })
+}
 
-
+  /*
   var ptyProcess = pty.spawn(shell, [], {
     name : "xterm-color",
     cols : 80,
@@ -233,20 +234,22 @@ function createWindow() {
     ptyProcess.write(data);
   })
 }
+*/
 
-app.on('ready', () => {
-  createWindow();
-})
+  app.on('ready', () => {
+    createWindow();
+  })
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
+  app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+      app.quit()
+    }
+  })
 
-app.on('activate', () => {
-  if (window === null) {
-    createWindow()
-  }
-})
+  app.on('activate', () => {
+    if (window === null) {
+      createWindow()
+    }
+  })
+
 

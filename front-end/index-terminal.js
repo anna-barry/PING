@@ -1,3 +1,4 @@
+/*
 import {Terminal} from "node-pty/src/terminal";
 
 const ipc = require("electron").ipcRenderer;
@@ -11,3 +12,5 @@ ipc.on("terminal.incomingData", (event, data) => {
 term.onData(e => {
     ipc.send("terminal.keystroke", e);
 });
+
+ */

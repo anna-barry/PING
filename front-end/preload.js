@@ -1,4 +1,4 @@
-const { app, ipcRenderer, contextBridge} = require('electron')
+const { app, BrowserWindow, ipcRenderer, contextBridge} = require('electron')
 const fs = require("fs");
 
 const API = {
@@ -47,6 +47,19 @@ const API = {
                 label: c => c.name
             })
             callback(args, root, tree);
+        }
+    ),
+
+    Options : (callback) => ipcRenderer.on("OPTIONS", (event, args) =>
+        {
+            let window = new BrowserWindow({
+                center: true,
+                minHeight: 650,
+                minWidth: 600,
+                backgroundColor: "#16181A",
+                alwaysOnTop: true,
+            })
+            callback(window);
         }
     ),
 }

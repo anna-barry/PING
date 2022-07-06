@@ -21,7 +21,6 @@ window.api.OpenDirectory((path, root, tree) => {
     })
 })
 
-
 window.api.Other((mode) => {
     if (mode === "dyslexique") {
         document.getElementById("fenetre_dyslexique").style.display = true;
@@ -30,6 +29,11 @@ window.api.Other((mode) => {
 
     }
 })
+
+window.api.Options((window) => {
+
+})
+
 window.api.Mode_th((args) => {
     if (args.toString() === "light") {
         document.body.background = "#FFFFFF";
