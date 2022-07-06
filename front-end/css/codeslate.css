@@ -48,6 +48,12 @@ body {
 width:300px;
 }
 
+fenetre_dyslexique
+{
+	display:false;
+}
+
+
 
 .explorerContainerStyles, .widgetsContainerStyles{
 	background:#2D3239;
