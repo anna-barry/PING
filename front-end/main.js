@@ -191,13 +191,11 @@ let menu_final =  [
 ];
 
 function createWindow() {
-
   window = new BrowserWindow({
     center: true,
     minHeight: 650,
     minWidth: 600,
     //icon: ,  //à faire
-    frame:true,
     backgroundColor: "#16181A",
     webPreferences: {
       nodeIntegration: true,
@@ -215,8 +213,8 @@ function createWindow() {
 
   window.on('ready-to-show', () => {
     window.show();
-
   })
+
 
   var ptyProcess = pty.spawn(shell, [], {
     name : "xterm-color",
@@ -251,6 +249,4 @@ app.on('activate', () => {
     createWindow()
   }
 })
-
-
 

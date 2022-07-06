@@ -27,7 +27,26 @@ const API = {
     ),
     OpenDirectory : (callback) => ipcRenderer.on("DIRECTORY_OPEN", (event, args) =>
         {
-            callback(args);
+            const root = {
+                name: 'foo',
+                children: [{
+                    name: 'bar',
+                    children: [{
+                        name: 'bar',
+                        children: []
+                    }, {
+                        name: 'baz',
+                        children: []
+                    }]
+                }]
+            }
+            const tree = require('electron-tree-view')({
+                root,
+                container: document.querySelector('.explorerContainer'),
+                children: c => c.children,
+                label: c => c.name
+            })
+            callback(args, root, tree);
         }
     ),
 }
