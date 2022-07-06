@@ -14,7 +14,6 @@
 
 	<!-- Insert this line above script imports  -->
 	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
-
 </head>
 
 <body>
@@ -116,6 +115,23 @@
 		window.api.SaveFile(() => {
 			console.log(document.getElementById("markdown").value);
 			return document.getElementById("markdown").value;
+		})
+	</script>
+	<script>
+		window.api.OpenDirectory(() => {
+
+		})
+	</script>
+	<script>
+		window.api.Other((mode) => {
+			if (mode === "dyslexique")
+			{
+				document.getElementById("fenetre_dyslexique").style.display = true;
+			}
+			if (mode === "daltonien")
+			{
+
+			}
 		})
 	</script>
 	<script>

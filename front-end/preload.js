@@ -1,4 +1,4 @@
-const { ipcRenderer, contextBridge } = require('electron')
+const { app, ipcRenderer, contextBridge} = require('electron')
 const fs = require("fs");
 
 const API = {
@@ -16,6 +16,16 @@ const API = {
         }
     ),
     Mode_th : (callback) => ipcRenderer.on("MODE", (event , args) =>
+        {
+            callback(args);
+        }
+    ),
+    Other : (callback) => ipcRenderer.on("OTHER", (event, args) =>
+        {
+            callback(args);
+        }
+    ),
+    OpenDirectory : (callback) => ipcRenderer.on("DIRECTORY_OPEN", (event, args) =>
         {
             callback(args);
         }

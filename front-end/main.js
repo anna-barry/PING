@@ -47,7 +47,14 @@ let menu_final =  [
       {
         label: 'Open Directory',
         click: async () => {
-
+          let files = await dialog.showOpenDialog({
+            properties: ['openDirectory']
+          });
+          if (files)
+          {
+            console.log(files);
+            window.webContents.send('DIRECTORY_OPEN', path_open);
+          }
         },
         accelerator:'',
       },
@@ -146,13 +153,13 @@ let menu_final =  [
       {
         label: 'Dyslexique',
         click: async () => {
-
+          window.webContents.send('OTHER', "dyslexique");
         },
       },
       {
         label: 'Daltoniens',
         click: async () => {
-
+          window.webContents.send('OTHER', "daltonien");
         },
       },
       { type: 'separator' },
@@ -195,15 +202,15 @@ function createWindow() {
     }
   });
   //window.loadFile(join(__dirname, "./in"))
-  window.loadFile('index.html')
+  window.loadFile('index.html');
+  const menu = Menu.buildFromTemplate(menu_final);
+  Menu.setApplicationMenu(menu);
 
   window.on('closed', () => {
     window = null;
   })
 
   window.on('ready-to-show', () => {
-    const menu = Menu.buildFromTemplate(menu_final);
-    Menu.setApplicationMenu(menu);
     window.show();
   })
 
