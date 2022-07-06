@@ -189,7 +189,6 @@ let menu_final =  [
 ];
 
 function createWindow() {
-
   window = new BrowserWindow({
     center: true,
     minHeight: 650,
@@ -213,7 +212,6 @@ function createWindow() {
   window.on('ready-to-show', () => {
     window.show();
   })
-
 }
 
 app.on('ready', () => {
@@ -231,35 +229,4 @@ app.on('activate', () => {
     createWindow()
   }
 })
-
-const root = {
-  name: 'foo',
-  children: [{
-    name: 'bar',
-    children: [{
-      name: 'bar',
-      children: []
-    }, {
-      name: 'baz',
-      children: []
-    }]
-  }]
-}
-
-const tree = require('electron-tree-view')({
-  root,
-  container: .querySelector('.explorerContainer'),
-  children: c => c.children,
-  label: c => c.name
-})
-
-tree.on('selected', item => {
-  // adding a new children to every selected item
-  item.children.push({ name: 'foo', children: [] })
-
-  tree.loop.update({ root })
-
-  console.log('item selected')
-})
-
 
