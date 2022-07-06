@@ -9,7 +9,10 @@
   "author": "Les Tortues Ninjas",
   "license": "ISC",
   "dependencies": {
-    "electron": "^19.0.7",
+    "electron-tree-view": "^1.1.0",
     "marked": "^4.0.17"
+  },
+  "devDependencies": {
+    "electron": "^19.0.7"
   }
 }

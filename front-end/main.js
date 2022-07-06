@@ -188,10 +188,7 @@ function createWindow() {
     minHeight: 650,
     minWidth: 600,
     //icon: ,  //à faire
-    fullscreen:true,
-    frame:true,
     backgroundColor: "#16181A",
-    autoHideMenuBar:true,
     webPreferences: {
       nodeIntegration: true,
       preload: join(__dirname, "./preload.js"),
@@ -208,7 +205,6 @@ function createWindow() {
     const menu = Menu.buildFromTemplate(menu_final);
     Menu.setApplicationMenu(menu);
     window.show();
-
   })
 
 }
@@ -229,5 +225,34 @@ app.on('activate', () => {
   }
 })
 
+const root = {
+  name: 'foo',
+  children: [{
+    name: 'bar',
+    children: [{
+      name: 'bar',
+      children: []
+    }, {
+      name: 'baz',
+      children: []
+    }]
+  }]
+}
+
+const tree = require('electron-tree-view')({
+  root,
+  container: .querySelector('.explorerContainer'),
+  children: c => c.children,
+  label: c => c.name
+})
+
+tree.on('selected', item => {
+  // adding a new children to every selected item
+  item.children.push({ name: 'foo', children: [] })
+
+  tree.loop.update({ root })
+
+  console.log('item selected')
+})
 
 
