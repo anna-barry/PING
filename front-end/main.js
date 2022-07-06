@@ -1,9 +1,11 @@
-const { app, BrowserWindow, Menu, shell, dialog} = require('electron');
+const { app, BrowserWindow, Menu, dialog, ipcMain} = require('electron');
 const fs = require("fs");
 const ipc = require('electron').ipcMain;
 const {join} = require('path');
+const os = require('os');
+const pty = require('node-pty');
 const isMac = process.platform === 'darwin'
-
+var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
 
 let window;
 let path_open;
@@ -216,6 +218,22 @@ function createWindow() {
 
   })
 
+  var ptyProcess = pty.spawn(shell, [], {
+    name : "xterm-color",
+    cols : 80,
+    rows : 24,
+    cwd : process.env.HOME,
+    env : process.env
+  });
+
+  ptyProcess.on("data", function (data)
+  {
+    window.webContents.send("terminal.incData", data);
+  })
+  ipcMain.on("terminal.toTerm", function (event, data)
+  {
+    ptyProcess.write(data);
+  })
 }
 
 app.on('ready', () => {

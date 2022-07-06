@@ -1,7 +1,15 @@
+.fenetre_dyslexique {
+	display: none;
+	position: fixed;
+	left: 45%;
+	top: 5%;
+	transform: translate(-45%, 5%);
+	border: 2px solid #666;
+	z-index: 9;
+}
 
-body {
-	background:url("../img/logo.png") no-repeat #1c1f23;
-	background-position:50% 50%;
+.terminalContainer {
+	width: 300px;
 }
 
 ::-webkit-scrollbar {
@@ -48,9 +56,9 @@ body {
 width:300px;
 }
 
-fenetre_dyslexique
+.fenetre_dyslexique
 {
-	display:false;
+	display: none;
 }
 
 
