@@ -21,35 +21,6 @@ window.api.OpenDirectory((path, root, tree) => {
     })
 })
 
-const root = {
-    name: 'foo',
-    children: [{
-        name: 'bar',
-        children: [{
-            name: 'bar',
-            children: []
-        }, {
-            name: 'baz',
-            children: []
-        }]
-    }]
-}
-
-const tree = require('electron-tree-view')({
-    root,
-    container: document.querySelector('.test'),
-    children: c => c.children,
-    label: c => c.name
-})
-
-tree.on('selected', item => {
-    // adding a new children to every selected item
-    item.children.push({ name: 'foo', children: [] })
-
-    tree.loop.update({ root })
-
-    console.log('item selected')
-})
 
 window.api.Other((mode) => {
     if (mode === "dyslexique") {
