@@ -1,8 +1,3 @@
-import {saveFile} from "./Component/optionsLoad.js"
-
-let config;
-
-
 window.api.Startup((con) => config = JSON.parse(con))
 
 window.api.OpenFile((path, text) => {
@@ -24,17 +19,9 @@ window.api.OpenDirectory((path, root, tree) => {
     })
 })
 
-window.api.Other((mode) => {
-    if (mode === "dyslexique") {
-        document.getElementById("fenetre_dyslexique").style.display = true;
-    }
-    if (mode === "daltonien") {
-
-    }
-})
-
 window.api.Options(() => {
     document.getElementById("optionsBox").style.display = "inline";
+
 });
 
 window.api.Mode_th((args) => {
@@ -137,8 +124,6 @@ fontSize.oninput = function (){
 
 document.getElementById("saveButton").addEventListener("click", () => {
     document.getElementById("optionsBox").style.display = "none";
-    window.
-    saveFile(config)
 })
 
 let family = document.getElementById("Family")
