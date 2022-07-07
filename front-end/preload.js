@@ -56,11 +56,6 @@ const API = {
             callback();
         }
     ),
-
-    Startup : (callback) => ipcRenderer.on("STARTUP", (event, args) =>
-    {
-        callback(args);
-    })
 }
 
 contextBridge.exposeInMainWorld("api", API);

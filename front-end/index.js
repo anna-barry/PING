@@ -1,4 +1,14 @@
-window.api.Startup((con) => config = JSON.parse(con))
+let config = {
+    "font-family": "Arial",
+    "font-size": 14,
+    "daltonism": false,
+    "dyslexia": false,
+    "daltonism-type": {
+        "tripanopia": false,
+        "deuteranopia": false,
+        "protanopia": false
+    }}
+
 
 window.api.OpenFile((path, text) => {
     document.getElementById("markdown").innerHTML = text;
@@ -25,7 +35,11 @@ window.api.Options(() => {
 });
 
 window.api.Mode_th((args) => {
-    if (args.toString() === "light") {
+    changeTheme(args.toString())
+})
+
+function changeTheme(args){
+    if (args === "light") {
         document.body.background = "#FFFFFF";
         document.body.color = "#000000";
         document.getElementById("markdown").style.background = "#FFFFFF";
@@ -46,7 +60,7 @@ window.api.Mode_th((args) => {
         document.getElementById("test").style.background = "#444242";
         document.getElementById("test").style.color = "#FFFFFF";
     }
-    if (args.toString() === "dark"){
+    if (args === "dark"){
         document.body.background = "#636363";
         document.body.color = "#FFFFFF";
         document.getElementById("markdown").style.background = "#313131";
@@ -67,7 +81,7 @@ window.api.Mode_th((args) => {
         document.getElementById("test").style.background = "#D1D1D1";
         document.getElementById("test").style.color = "#FFFFFF";
     }
-    if (args.toString() === "epita") {
+    if (args === "epita") {
         document.body.background = "#0e1e5d";
         document.body.color = "#FFFFFF";
         document.getElementById("markdown").style.background = "#05113b";
@@ -88,18 +102,27 @@ window.api.Mode_th((args) => {
         document.getElementById("test").style.background = "#102db2";
         document.getElementById("test").style.color = "#42f50d";
     }
-})
+}
 
 
 let dyslexia = document.getElementById("yes1")
 dyslexia.oninput = function (){
     config["dyslexia"] = dyslexia.checked
-    console.log(config["dyslexia"])
 }
 
 let daltonism = document.getElementById("yes2")
 daltonism.oninput = function (){
     config["daltonism"] = daltonism.checked
+    if (config["daltonism"])
+    {
+        document.getElementById("daltonismBox").style.display = 'flex'
+        document.getElementById('optionsBox').style.height = "500px";
+    }
+    else
+    {
+        document.getElementById("daltonismBox").style.display = 'none'
+        document.getElementById('optionsBox').style.height = "350px";
+    }
 }
 
 let deutera = document.getElementById("deuteranopia")
@@ -124,6 +147,22 @@ fontSize.oninput = function (){
 
 document.getElementById("saveButton").addEventListener("click", () => {
     document.getElementById("optionsBox").style.display = "none";
+
+    if (!config["dyslexia"] && !config["daltonism"]) {
+        let textArea = document.getElementsByTagName('textarea')
+        for (let i = 0; i < textArea.length; i++) {
+            textArea[i].style.fontSize = config['font-size']
+            textArea[i].style.fontFamily = config['font-family']
+        }
+    }
+    else if (config["dyslexia"]){
+        changeTheme("light")
+        let textArea = document.getElementsByTagName('textarea')
+        for (let i = 0; i < textArea.length; i++) {
+            textArea[i].style.fontSize = config['font-size']
+            textArea[i].style.fontFamily = config['font-family']
+        }
+    }
 })
 
 let family = document.getElementById("Family")

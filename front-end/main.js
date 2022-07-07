@@ -220,10 +220,6 @@ function createWindow() {
 
   window.on('ready-to-show', () => {
     window.show();
-    fs.readFile("options.json", (err, data) => {
-      if (err) throw err;
-      window.webContents.send('STARTUP', data.toString())
-    })
   })
 }
 
