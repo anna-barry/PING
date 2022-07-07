@@ -1,11 +1,73 @@
 const { app, BrowserWindow, Menu, dialog, ipcMain} = require('electron');
+
+//import {MyAPI} from './testAPI.js';
 const fs = require("fs");
 const ipc = require('electron').ipcMain;
 const {join} = require('path');
 const os = require('os');
+const axios = require('axios');
 //const pty = require('node-pty');
 const isMac = process.platform === 'darwin'
 var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
+
+// _____________________________________
+/*
+  Linking the backend and front-end
+ */
+class MyAPI {
+  #protocol;
+  #host;
+  #port;
+
+  constructor(protocol = "http", host = "127.0.0.1", port = 4567) {
+    this.#protocol = protocol;
+    this.#host = host;
+    this.#port = port;
+  }
+
+  get protocol() {
+    return this.#protocol;
+  }
+
+  set protocol(value) {
+    this.#protocol = value;
+  }
+
+  get host() {
+    return this.#host;
+  }
+
+  set host(value) {
+    this.#host = value;
+  }
+
+  get port() {
+    return this.#port;
+  }
+
+  set port(value) {
+    this.#port = value;
+  }
+
+  urlFromPath(path) {
+    //const url = `${this.#protocol}://${simplifyUrl(`${this.#host}:${this.#port}/${path}`)}`;
+    const url = "http://localhost:4567/"+path;
+    console.warn("http://localhost:4567/"+path);
+    return url;
+  }
+
+  get(path) {
+    const url = this.urlFromPath(path);
+    return axios.get(url);
+  }
+
+  post(path, object) {
+    const url = this.urlFromPath(path);
+    return axios.post(url, object);
+  }
+}
+let API_test = new MyAPI()
+// _____________________________________
 
 let window;
 let path_open;
@@ -63,7 +125,9 @@ let menu_final =  [
       {
         label: 'New File',
         click: async () => {
-
+          API_test.get('hello').then((response) =>{
+            console.log("worked?");
+          }).catch((error) => console.error((error)))
         },
         accelerator:'',
       },

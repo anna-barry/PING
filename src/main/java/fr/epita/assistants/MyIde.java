@@ -1,10 +1,12 @@
 package fr.epita.assistants;
 
+import fr.epita.assistants.myide.domain.entity.Project;
 import fr.epita.assistants.myide.domain.service.ProjectService;
 import fr.epita.assistants.myide.domain.service.ProjectServiceClass;
 import fr.epita.assistants.utils.Given;
 
 import java.nio.file.Path;
+import fr.epita.assistants.myide.domain.features.testLink;
 
 /**
  * Starter class, we will use this class and the init method to get a
@@ -12,6 +14,7 @@ import java.nio.file.Path;
  */
 @Given(overridden = false)
 public class MyIde {
+    public static Project p = null;
 
     /**
      * Init method. It must return a fully functional implementation of {@link ProjectService}.
@@ -30,6 +33,15 @@ public class MyIde {
      */
     public record Configuration(Path indexFile,
                                 Path tempFolder) {
+    }
+
+    public static void main(String[] args)
+    {
+        ProjectService debut = init(null);
+        p = debut.load(Path.of("/Users/anna/Documents/EPITA/git/PING"));
+        testLink testing = new testLink();
+        testing.runtest();
+
     }
 
 }
