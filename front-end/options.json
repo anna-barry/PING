@@ -1,0 +1,10 @@
+{
+"font-family": "Arial",
+"font-size": 14,
+"daltonism": false,
+"dyslexia": false,
+"daltonism-type": {
+  "tripanopia": false,
+  "deuteranopia": false,
+  "protanopia": false
+}}

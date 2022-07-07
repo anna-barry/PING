@@ -1,8 +1,9 @@
-const { app, BrowserWindow, Menu, dialog, ipcMain} = require('electron');
+const { app, BrowserWindow,  Menu, dialog, ipcMain} = require('electron');
 const fs = require("fs");
 const ipc = require('electron').ipcMain;
 const {join} = require('path');
 const os = require('os');
+const {options} = require("marked");
 //const pty = require('node-pty');
 const isMac = process.platform === 'darwin'
 var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
@@ -83,6 +84,12 @@ let menu_final =  [
 
         },
         accelerator:'',
+      },
+      {
+        label: "Options",
+        click: async () => {
+          window.webContents.send("OPTIONS")
+        }
       },
     ]},
   // { role: 'editMenu' }
@@ -213,6 +220,10 @@ function createWindow() {
 
   window.on('ready-to-show', () => {
     window.show();
+    fs.readFile("options.json", (err, data) => {
+      if (err) throw err;
+      window.webContents.send('STARTUP', data.toString())
+    })
   })
 }
 

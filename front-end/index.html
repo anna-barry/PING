@@ -2,6 +2,7 @@
 
 <head>
 	<title id="title">PING - New file</title>
+
 	<link rel="stylesheet" href="css/codeslate.css">
 	<link rel="stylesheet" href="css/theme.css">
 	<link rel="stylesheet" href="css/titleBar.css">
@@ -10,10 +11,10 @@
 	<link href="css/menu.css" rel="stylesheet" type="text/css" />
 	<link href='css/spectrum.css' rel='stylesheet' type='text/css' />
 	<link rel="stylesheet" href="node_module/xterm/css/xterm.css">
+	<link rel="stylesheet" href="css/Options.css">
 
 	<script src="node_module/xterm/lib/xterm.js"></script>
-
-	<script src="index.js" defer></script>
+	<script src="index.js" defer type="module"></script>
 
 	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
 </head>
@@ -30,7 +31,6 @@
 	</div>
 
 	<div class="container">
-
 		<div class="titleBar titleBarStyle" id="barstyle">
 
 			<div class="windowTitle draggable preventSelect"> <span id='currentFileName'> </span> PING </div>
@@ -44,35 +44,21 @@
 			</div>
 
 		</div>
-
 		<div class="codingScreen preventSelect">
-
-
 			<div class="explorerContainer explorerContainerStyles" id="resizableExplorer">
-
-				<div class="filesContainer">
-					<!--all the new and opened files are shown here-->
-
-
-				</div>
+				<div class="filesContainer"></div>
+				<!--all the new and opened files are shown here-->
 
 				<div class="folderFiles" id="test">
 					<!--all the contents of any folder is shown here-->
 					<div class="folderTitle">
-
 						<div id='folderName'></div>
-
 						<button id="syncFiles" title="sync files"><i class='fas fa-sync-alt'></i></button>
 						<button id="changeFolder">Change</button>
-
 					</div>
-
-					<div class="exploredFilesContainer">
-
-					</div>
+					<div class="exploredFilesContainer"></div>
 
 				</div>
-
 			</div>
 
 			<div class="editorContainer">
@@ -86,17 +72,76 @@
 					<button id='run' onclick='loadView(id)'></button>
 					<button id="maven" onclick='loadView(id)'></button>
 				</div>
-
 			</div>
-			
+
 			<!--<div id='terminalContainer' class='webviewContainer'></div> -->
 
-		</div>
-	</div>
+			<div class="optionsBox" style="display: none" id="optionsBox">
+				<div class="optionsElement" id="accessibilityBox">
+					<div class="button"  id="dyslexia">
+						<p>Do you have dyslexia?</p>
+						<div>
+							<input  type="checkbox" id="yes1" value="Yes">
+							<label for="yes1">Yes</label>
+						</div>
+					</div>
 
-	<!-- index.html -->
-	<script src="./index-terminal.js"></script>
+					<div class="button" id="daltonism">
+						<p>Do you have daltonism?</p>
+						<div>
+							<input  type="checkbox" id="yes2" value="Yes">
+							<label for="yes2">Yes</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="optionsElement"  id="daltonismBox">
+					<p class="button">What kind of daltonism?</p>
+					<div class="button">
+						<div>
+							<input  type="checkbox" id="tripanopia" value="Tripanopia">
+							<label for="tripanopia">Tripanopia</label>
+						</div>
+
+						<div>
+							<input  type="checkbox" id="deuteranopia" value="Deuteranopia">
+							<label for="deuteranopia">Deuteranopia</label>
+						</div>
+
+						<div>
+							<input  type="checkbox" id="protanopia" value="Protanopia">
+							<label for="protanopia">Protanopia</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="optionsElement"  id="fonts">
+					<div class="button">
+						<label for="fontSize">Font size</label>
+						<input  type="text" id="fontSize" value="14" size="8">
+					</div>
+					<div class="button" id="fontFamily">
+						<label for="Family">Font family</label>
+						<select name="dropdown" id="Family">
+							<option value = "Arial">Arial</option>
+							<option value = "Comic Sans">Comic Sans</option>
+							<option value = "Impact">Impact</option>
+							<option value = "Times New Roman">Times New Roman</option>
+							<option value = "Verdana">Verdana</option>
+							<option value = "Courier New">Courier New</option>
+							<option value = "Candara">Candara</option>
+						</select>
+					</div>
+				</div>
+
+				<button class="button" style="float: right; margin-top: 10px " id="saveButton">Save</button>
+			</div>
+		</div>
+
+	</div>
 
 </body>
 
+<!-- index.html -->
+<script src="./index-terminal.js"></script>
 </html>

@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcRenderer, contextBridge} = require('electron')
 const fs = require("fs");
+//const {resolveUrl} = require("marked/src/helpers");
 
 const API = {
     OpenFile : (callback) => ipcRenderer.on("FILE_OPEN", (events, args) =>
@@ -52,16 +53,14 @@ const API = {
 
     Options : (callback) => ipcRenderer.on("OPTIONS", (event, args) =>
         {
-            let window = new BrowserWindow({
-                center: true,
-                minHeight: 650,
-                minWidth: 600,
-                backgroundColor: "#16181A",
-                alwaysOnTop: true,
-            })
-            callback(window);
+            callback();
         }
     ),
+
+    Startup : (callback) => ipcRenderer.on("STARTUP", (event, args) =>
+    {
+        callback(args);
+    })
 }
 
 contextBridge.exposeInMainWorld("api", API);

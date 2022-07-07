@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Options</title>
+
+    <link rel="stylesheet" href="../css/Options.css">
+</head>
+<body>
+<div class="optionsBox" id="optionsBox">
+    <div class="optionsElement" id="accessibilityBox">
+        <div class="button"  id="dyslexia">
+            <p>Do you have dyslexia?</p>
+            <div>
+                <input  type="checkbox" id="yes1" value="Yes">
+                <label for="yes1">Yes</label>
+            </div>
+        </div>
+
+        <div class="button" id="daltonism">
+            <p>Do you have daltonism?</p>
+            <div>
+                <input  type="checkbox" id="yes2" value="Yes">
+                <label for="yes2">Yes</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="optionsElement"  id="daltonismBox">
+        <p class="button">What kind of daltonism?</p>
+        <div class="button">
+            <div>
+                <input  type="checkbox" id="tripanopia" value="Tripanopia">
+                <label for="tripanopia">Tripanopia</label>
+            </div>
+
+            <div>
+                <input  type="checkbox" id="deuteranopia" value="Deuteranopia">
+                <label for="deuteranopia">Deuteranopia</label>
+            </div>
+
+            <div>
+                <input  type="checkbox" id="protanopia" value="Protanopia">
+                <label for="protanopia">Protanopia</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="optionsElement"  id="fonts">
+        <div class="button">
+            <label for="fontSize">Font size</label>
+            <input  type="text" id="fontSize" value="14" size="8">
+        </div>
+        <div class="button" id="fontFamily">
+            <label for="Family">Font family</label>
+            <select name="dropdown" id="Family">
+                <option value = "Arial">Arial</option>
+                <option value = "Comic Sans">Comic Sans</option>
+                <option value = "Impact">Impact</option>
+                <option value = "Times New Roman">Times New Roman</option>
+                <option value = "Verdana">Verdana</option>
+                <option value = "Courier New">Courier New</option>
+                <option value = "Candara">Candara</option>
+            </select>
+        </div>
+    </div>
+
+    <button class="button" style="float: right; margin-top: 10px " id="saveButton">Save</button>
+</div>
+
+</body>
+<script src="Options.js" type="module"></script>
+</html>

@@ -1,6 +1,10 @@
+import {saveFile} from "./Component/optionsLoad.js"
+
+let config;
 
 
-<!-- index.html -->
+window.api.Startup((con) => config = JSON.parse(con))
+
 window.api.OpenFile((path, text) => {
     document.getElementById("markdown").innerHTML = text;
     document.getElementById("title").innerText = path;
@@ -11,7 +15,6 @@ window.api.SaveFile(() => {
     return document.getElementById("markdown").value;
 })
 
-// opening directory arborescence
 window.api.OpenDirectory((path, root, tree) => {
     tree.on('selected', item => {
         // adding a new children to every selected item
@@ -30,9 +33,9 @@ window.api.Other((mode) => {
     }
 })
 
-window.api.Options((window) => {
-
-})
+window.api.Options(() => {
+    document.getElementById("optionsBox").style.display = "inline";
+});
 
 window.api.Mode_th((args) => {
     if (args.toString() === "light") {
@@ -99,4 +102,47 @@ window.api.Mode_th((args) => {
         document.getElementById("test").style.color = "#42f50d";
     }
 })
+
+
+let dyslexia = document.getElementById("yes1")
+dyslexia.oninput = function (){
+    config["dyslexia"] = dyslexia.checked
+    console.log(config["dyslexia"])
+}
+
+let daltonism = document.getElementById("yes2")
+daltonism.oninput = function (){
+    config["daltonism"] = daltonism.checked
+}
+
+let deutera = document.getElementById("deuteranopia")
+deutera.oninput = function (){
+    config["daltonism-type"]["deuteranopia"] = deutera.checked
+}
+
+let tripano = document.getElementById("tripanopia")
+tripano.oninput = function (){
+    config["daltonism-type"]["tripanopia"] = tripano.checked
+}
+
+let protano = document.getElementById("protanopia")
+protano.oninput = function (){
+    config["daltonism"]["protanopia"] = protano.checked
+}
+
+let fontSize = document.getElementById("fontSize")
+fontSize.oninput = function (){
+    config["font-size"] = fontSize.value
+}
+
+document.getElementById("saveButton").addEventListener("click", () => {
+    document.getElementById("optionsBox").style.display = "none";
+    window.
+    saveFile(config)
+})
+
+let family = document.getElementById("Family")
+family.onchange = function (){
+    config["font-family"] = family.value
+}
 

@@ -1,0 +1,29 @@
+.optionsBox {
+    position: fixed;
+    z-index: 6;
+    left: 35%;
+    margin: auto;
+    padding: 20px;
+    width:600px;
+    height:500px;
+    border-radius: 44px;
+    background-color: #59606b;
+}
+
+.optionsElement {
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    width: 550px;
+    height: 120px;
+    margin: auto;
+    margin-top: 30px;
+    background-color: #888888;
+    border-radius: 44px;
+}
+
+.button {
+    position: relative;
+    margin: auto;
+}
+
