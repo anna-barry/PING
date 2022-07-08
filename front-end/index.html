@@ -63,21 +63,6 @@
 					  is="highlighted-code"
 					  cols="80" rows="12"
 					  language="java" tab-size="2" auto-height></textarea>
-
-				<script type="module">
-					(async ({chrome, netscape}) => {
-						// add Safari polyfill if needed
-						if (!chrome && !netscape)
-							await import('https://unpkg.com/@ungap/custom-elements');
-
-						const {default: HighlightedCode} =
-								await import('https://unpkg.com/highlighted-code');
-
-						// bootstrap a theme through one of these names
-						// https://github.com/highlightjs/highlight.js/tree/main/src/styles
-						HighlightedCode.useTheme('dark');
-					})(self);
-				</script>
 			</div>
 
 			<div class="widgetsDrawer" id="ouep-ici">
@@ -110,7 +95,7 @@
 					</div>
 				</div>
 
-				<div class="optionsElement"  id="daltonismBox" style="display: none">
+				<div class="optionsElement"  id="daltonismBox" style="display: none; text-align: left">
 					<p class="button">What kind of daltonism?</p>
 					<div class="button">
 						<div>
@@ -130,20 +115,21 @@
 					</div>
 				</div>
 
-				<div class="optionsElement"  id="fonts">
+				<div class="optionsElement" style="display: grid"  id="fonts">
 					<div class="button">
 						<label for="fontSize">Font size</label>
 						<input  type="text" id="fontSize" value="14" size="8">
 					</div>
 					<div class="button" id="fontFamily">
 						<label for="Family">Font family</label>
-						<select name="dropdown" id="Family">
+						<select style="margin: auto" name="dropdown" id="Family">
+							<option value = "Courier New">Courier New</option>
 							<option value = "Arial">Arial</option>
+							<option value = "Sans Serif">Sans Serif</option>
 							<option value = "Comic Sans">Comic Sans</option>
 							<option value = "Impact">Impact</option>
 							<option value = "Times New Roman">Times New Roman</option>
 							<option value = "Verdana">Verdana</option>
-							<option value = "Courier New">Courier New</option>
 							<option value = "Candara">Candara</option>
 						</select>
 					</div>

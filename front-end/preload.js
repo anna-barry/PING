@@ -56,6 +56,12 @@ const API = {
             callback();
         }
     ),
+
+    Colortheme : (callback) => ipcRenderer.on("COLORTHEME", (event, args) =>
+        {
+            callback(args);
+        }
+    ),
 }
 
 contextBridge.exposeInMainWorld("api", API);

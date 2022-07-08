@@ -161,15 +161,15 @@ let menu_final =  [
       },
       { type: 'separator' },
       {
-        label: 'Dyslexique',
+        label: 'Monokai',
         click: async () => {
-          window.webContents.send('OTHER', "dyslexique");
+          window.webContents.send('COLORTHEME', "monokai");
         },
       },
       {
-        label: 'Daltoniens',
+        label: 'Dark',
         click: async () => {
-          window.webContents.send('OTHER', "daltonien");
+          window.webContents.send('COLORTHEME', "dark");
         },
       },
       { type: 'separator' },
@@ -246,6 +246,7 @@ function createWindow() {
 
   app.on('ready', () => {
     createWindow();
+    window.webContents.send('COLORTHEME', 'light')
   })
 
   app.on('window-all-closed', () => {

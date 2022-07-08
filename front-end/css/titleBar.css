@@ -10,9 +10,11 @@ display:grid;
 grid-template-rows: auto 1fr;
 }
 
+/*
 body *{
 	box-sizing: border-box;
 }
+*/
 
 .windowTitle{
 	padding:10px;
