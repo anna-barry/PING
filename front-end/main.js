@@ -1,12 +1,75 @@
-const { app, BrowserWindow,  Menu, dialog, ipcMain} = require('electron');
+const { app, BrowserWindow, Menu, dialog, ipcMain} = require('electron');
 const fs = require("fs");
 const ipc = require('electron').ipcMain;
 const {join} = require('path');
 const os = require('os');
-const {options} = require("marked");
+const axios = require('axios');
 //const pty = require('node-pty');
 const isMac = process.platform === 'darwin'
 var shell = os.platform() === "win32" ? "powershell.exe" : "bash";
+
+
+// _____________________________________
+/*
+  Linking the backend and front-end
+ */
+
+
+class MyAPI {
+  #protocol;
+  #host;
+  #port;
+
+  constructor(protocol = "http", host = "127.0.0.1", port = 4567) {
+    this.#protocol = protocol;
+    this.#host = host;
+    this.#port = port;
+  }
+
+  get protocol() {
+    return this.#protocol;
+  }
+
+  set protocol(value) {
+    this.#protocol = value;
+  }
+
+  get host() {
+    return this.#host;
+  }
+
+  set host(value) {
+    this.#host = value;
+  }
+
+  get port() {
+    return this.#port;
+  }
+
+  set port(value) {
+    this.#port = value;
+  }
+
+  urlFromPath(path) {
+    //const url = `${this.#protocol}://${simplifyUrl(`${this.#host}:${this.#port}/${path}`)}`;
+    const url = "http://localhost:4000/"+path;
+    console.warn("http://localhost:4000/"+path);
+    return url;
+  }
+
+  get(path) {
+    const url = this.urlFromPath(path);
+    return axios.get(url);
+  }
+
+  post(path, object) {
+    const url = this.urlFromPath(path);
+    return axios.post(url, object);
+  }
+}
+let API_test = new MyAPI()
+// _____________________________________
+
 
 let window;
 let path_open;
@@ -89,10 +152,145 @@ let menu_final =  [
         label: "Options",
         click: async () => {
           window.webContents.send("OPTIONS")
+        },
+        accelerator: 'Ctrl+O',
+      },
+    ]},
+  {
+    label: 'Features',
+    submenu : [
+      {
+        label: 'Any Clean',
+        click: async () => {
+          API_test.get('feature/any/clean').then((response) =>{
+            console.log("Any Clean");
+          }).catch((error) => console.error((error)))
+        },
+      },
+      { type: 'separator' },
+      {
+        label: 'Maven Clean',
+        click: async () => {
+          API_test.get('feature/maven/clean').then((response) =>{
+            console.log("Maven Clean");
+          }).catch((error) => console.error((error)))
+        },
+      },
+      {
+        label: 'Maven Compile',
+        click: async () => {
+          API_test.get('feature/maven/compile').then((response) =>{
+            console.log("Maven compile");
+          }).catch((error) => console.error((error)))
+        },
+      },
+      {
+        label: 'Maven Exec',
+        click: async () => {
+          API_test.get('feature/maven/exec').then((response) =>{
+            console.log("Maven exec");
+          }).catch((error) => console.error((error)))
+        },
+      },
+      {
+        label: 'Maven Install',
+        click: async () => {
+          API_test.get('feature/maven/install').then((response) =>{
+            console.log("Maven install");
+          }).catch((error) => console.error((error)))
+        },
+      },
+      {
+        label: 'Maven Package',
+        click: async () => {
+          API_test.get('feature/maven/package').then((response) =>{
+            console.log("Maven package");
+          }).catch((error) => console.error((error)))
+        },
+      },
+      {
+        label: 'Maven Test',
+        click: async () => {
+          API_test.get('feature/maven/test').then((response) =>{
+            console.log("Maven test");
+          }).catch((error) => console.error((error)))
+        },
+      },
+      {
+        label: 'Maven Tree',
+        click: async () => {
+          API_test.get('feature/maven/tree').then((response) =>{
+            console.log("Maven tree");
+          }).catch((error) => console.error((error)))
+        },
+      },
+
+    ]},
+  {
+    label: 'Fatigue Detector',
+    submenu : [
+      { type: 'separator' },
+      {
+        label: 'Send Data',
+        click: async () => {
+          await window.webContents.send('SAVE_NB');
+
+          let res ;
+          await fs.promises.readFile("tmp_json.txt").then(function(result) {
+            res = result;
+          })
+              .catch(function(error) {
+                console.log(error);
+              })
+        }
+      },
+      { type: 'separator' },
+      {
+        label: 'Diagnostic',
+        click: async () => {
+          let res = "";
+          await fs.promises.readFile("tmp_json.txt").then(function (result) {
+            res = ""+ result;
+            let numbers = [];
+            let deleted = [];
+            let tired = false;
+            let average = 0;
+            let splitString = res.split('\n')
+            let l = splitString.length;
+            if (l > 1){
+              for (let a of splitString){
+                numbers.push(parseFloat(a.split(' ')[1]));
+                deleted.push(parseFloat(a.split(' ')[0]));
+              }
+              for (let a = l - 1; a > 0; a--){
+                numbers[a] = numbers[a] - numbers[a - 1];
+              }
+              numbers[0] = 0;
+              average += deleted[0];
+              for (let a = 1; a < l - 1; a++){
+                average += 10000*deleted[a]/numbers[a];
+              }
+              average = average/(l - 1);
+              let tmp = 10000*deleted[l - 1]/numbers[l - 1];
+              if (tmp > average*1.5){
+                tired = true;
+              }
+            }
+            if (tired)
+            {
+              dialog.showErrorBox('Analysis', 'You seem to be too tired too work. Please take a break and come back');
+            }
+            else
+              dialog.showErrorBox('Analysis!', 'Nothing anormal detected.');
+          })
+              .catch(function (error) {
+                console.log(error);
+              })
         }
       },
     ]},
-  // { role: 'editMenu' }
+
+      // { role: 'editMenu' }
   {
     label: 'Modifier',
     submenu : [
@@ -245,6 +443,7 @@ function createWindow() {
 
   app.on('ready', () => {
     createWindow();
+    window.webContents.send('COLORTHEME', 'light')
   })
 
   app.on('window-all-closed', () => {
@@ -258,5 +457,17 @@ function createWindow() {
       createWindow()
     }
   })
+/*
+const interval = setInterval(async () => {
+  let payload = {nb_delete: nb_delete};
+  console.log("set interval js")
+  let res = await API_test.post('timing', payload).catch((error) => console.error((error)));
+
+  let data = res.data;
+  console.log(data);
+  nb_delete = 0;
+}, 1000 * 60 * 5);*/
+
+//clearInterval(interval);
 
 

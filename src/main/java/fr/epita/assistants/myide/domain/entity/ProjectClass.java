@@ -9,6 +9,7 @@ import fr.epita.assistants.myide.domain.features.MAVEN.Package;
 import fr.epita.assistants.myide.domain.features.git.*;
 import fr.epita.assistants.myide.domain.features.MAVEN.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -16,6 +17,7 @@ import java.util.Set;
 public class ProjectClass implements Project {
     @NotNull private final Node rootNode;
     @NotNull private final Set<Aspect> aspects;
+    private Set<Feature> features_;
 
     @Override
     public Optional<Feature> getFeature(Feature.Type featureType) {
@@ -27,41 +29,20 @@ public class ProjectClass implements Project {
         else if (Mandatory.Features.Any.SEARCH.equals(featureType))
             return Optional.of(new Search());
 
-        if (aspects.stream().anyMatch(aspect -> aspect.getType().equals(Mandatory.Aspects.GIT)))
-        {
-            if (Mandatory.Features.Git.COMMIT.equals(featureType))
-                return Optional.of(new GitCommit());
-            else if (Mandatory.Features.Git.ADD.equals(featureType))
-                return Optional.of(new GitAdd());
-            else if (Mandatory.Features.Git.PULL.equals(featureType))
-                return Optional.of(new GitPull());
-            else if (Mandatory.Features.Git.PUSH.equals(featureType))
-                return Optional.of(new GitPush());
-        }
-
-        else if (aspects.stream().anyMatch(aspect -> aspect.getType().equals(Mandatory.Aspects.MAVEN)))
-        {
-            if (Mandatory.Features.Maven.COMPILE.equals(featureType))
-                return Optional.of(new Compile());
-            else if (Mandatory.Features.Maven.CLEAN.equals(featureType))
-                return Optional.of(new Clean());
-            else if (Mandatory.Features.Maven.TEST.equals(featureType))
-                return Optional.of(new Test());
-            else if (Mandatory.Features.Maven.PACKAGE.equals(featureType))
-                return Optional.of(new Package());
-            else if (Mandatory.Features.Maven.INSTALL.equals(featureType))
-                return Optional.of(new Install());
-            else if (Mandatory.Features.Maven.EXEC.equals(featureType))
-                return Optional.of(new Exec());
-            else if (Mandatory.Features.Maven.TREE.equals(featureType))
-                return Optional.of(new Tree());
-        }
-        return Optional.empty();
+        return features_.stream().filter(feature -> feature.type() == featureType).findFirst();
     }
 
     public ProjectClass(Node rootNode, Set<Aspect> aspects) {
         this.rootNode = rootNode;
         this.aspects = aspects;
+        features_ = new HashSet<Feature>();
+        try {
+            for (Aspect aspect : aspects) {
+                features_.addAll(aspect.getFeatureList());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

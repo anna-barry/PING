@@ -4,15 +4,17 @@ body{
 }
 
 .container{
-height:100%;
-padding:0;
-display:grid;
-grid-template-rows: auto 1fr;
+	height:100%;
+	padding:0;
+	display:grid;
+	grid-template-rows: auto 1fr;
 }
 
+/*
 body *{
 	box-sizing: border-box;
 }
+*/
 
 .windowTitle{
 	padding:10px;
@@ -47,7 +49,7 @@ body *{
 
 
 .titleBarStyle{
-		background:#202327;
+	background:#202327;
 	font-family:montserrat;
 	color:#fff;
 	font-size:10pt;
@@ -56,7 +58,7 @@ body *{
 
 .windowControlsStyle{
 	background: none;
-	
+
 	border-radius:0 0 5px 5px;
 }
 

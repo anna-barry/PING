@@ -21,6 +21,7 @@ public class Cleanup implements Feature {
 
         @Override
         public ExecutionReport execute(Project project, Object... params) {
+            System.out.println("ExecutionReport");
             class Result implements ExecutionReport {
 
                 public Result(boolean res) {
@@ -38,13 +39,15 @@ public class Cleanup implements Feature {
                 private boolean Result_;
             }
             Result report = new Result(false);
-
+            System.out.println(project.getRootNode().getPath().toAbsolutePath() + File.separator+ ".myideignore\"");
             try (Stream<String> stream = Files.lines(Paths.get(project.getRootNode().getPath().toAbsolutePath() + File.separator+ ".myideignore"))) {
                 stream.forEach(file -> {
                     File f = new File(project.getRootNode().getPath().toAbsolutePath() + File.separator + file);
-
+                    System.out.println(f.getPath());
                     if (!f.isDirectory()) {
-                        f.delete();
+                        System.out.println("not a directory");
+                        boolean wasdeleted = f.delete();
+                        System.out.println(wasdeleted);
                     } else {
                         subsub(f);
                     }

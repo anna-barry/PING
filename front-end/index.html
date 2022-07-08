@@ -18,124 +18,122 @@
 
 <body>
 
-	<div id="contextMenu">
-		<!--  context menu -->
-	</div>
+<div id="contextMenu">
+	<!--  context menu -->
+</div>
 
-	<div id="renameFileContainer">
-		Rename...
-		<input type="text" id="renameInput">
-	</div>
+<div id="renameFileContainer">
+	Rename...
+	<input type="text" id="renameInput">
+</div>
 
-	<div class="container">
-		<div class="titleBar titleBarStyle" id="barstyle">
+<div class="container">
+	<div class="titleBar titleBarStyle" id="barstyle">
 
-			<div class="windowTitle draggable preventSelect"> <span id='currentFileName'> </span> PING </div>
+		<div class="windowTitle draggable preventSelect"> <span id='currentFileName'> </span> PING </div>
 
-			<div class="windowControls windowControlsStyle preventSelect">
+		<div class="windowControls windowControlsStyle preventSelect">
 
-				<button id="minimise"> <i class="far fa-window-minimize"></i> </button>
-				<button id="maximise"> <i class="far fa-window-maximize"></i> </button>
-				<button id="quit"> <i class="fas fa-times"></i> </button>
-
-			</div>
+			<button id="minimise"> <i class="far fa-window-minimize"></i> </button>
+			<button id="maximise"> <i class="far fa-window-maximize"></i> </button>
+			<button id="quit"> <i class="fas fa-times"></i> </button>
 
 		</div>
-		<div class="codingScreen preventSelect">
-			<div class="explorerContainer explorerContainerStyles" id="resizableExplorer">
-				<div class="filesContainer"></div>
-				<!--all the new and opened files are shown here-->
 
-				<div class="folderFiles" id="test">
-					<!--all the contents of any folder is shown here-->
-					<div class="folderTitle">
-						<div id='folderName'></div>
-						<button id="syncFiles" title="sync files"><i class='fas fa-sync-alt'></i></button>
-						<button id="changeFolder">Change</button>
-					</div>
-					<div class="exploredFilesContainer"></div>
+	</div>
+	<div class="codingScreen preventSelect">
+		<div class="explorerContainer explorerContainerStyles" id="resizableExplorer">
+			<div class="filesContainer"></div>
+			<!--all the new and opened files are shown here-->
 
-				</div>
+			<div class="folderFiles" id="test">
+				<!--all the contents of any folder is shown here-->
+				<div class="exploredFilesContainer"></div>
+
 			</div>
+		</div>
 
-			<div class="editorContainer">
-				<textarea class="raw-markdown" id="markdown" spellcheck="false"></textarea>
-			</div>
+		<div class="editorContainer">
+			<textarea class="raw-markdown" id="markdown" spellcheck="false"
+					  is="highlighted-code"
+					  cols="80" rows="12"
+					  language="java" tab-size="2" auto-height></textarea>
+		</div>
 
-			<div class="widgetsDrawer" id="ouep-ici">
-				<div class="widgetLoader">
+		<div class="widgetsDrawer" id="ouep-ici">
+			<div class="widgetLoader">
 
 				<div class='widgetsHeader' id="ouep-ici2"> <span></span></div>
-					<button id='run' onclick='loadView(id)'></button>
-					<button id="maven" onclick='loadView(id)'></button>
-				</div>
-			</div>
-
-			<!--<div id='terminalContainer' class='webviewContainer'></div> -->
-
-			<div class="optionsBox" style="display: none" id="optionsBox">
-				<div class="optionsElement" id="accessibilityBox">
-					<div class="button"  id="dyslexia">
-						<p>Do you have dyslexia?</p>
-						<div>
-							<input  type="checkbox" id="yes1" value="Yes">
-							<label for="yes1">Yes</label>
-						</div>
-					</div>
-
-					<div class="button" id="daltonism">
-						<p>Do you have daltonism?</p>
-						<div>
-							<input  type="checkbox" id="yes2" value="Yes">
-							<label for="yes2">Yes</label>
-						</div>
-					</div>
-				</div>
-
-				<div class="optionsElement"  id="daltonismBox" style="display: none">
-					<p class="button">What kind of daltonism?</p>
-					<div class="button">
-						<div>
-							<input  type="checkbox" id="tripanopia" value="Tripanopia">
-							<label for="tripanopia">Tripanopia</label>
-						</div>
-
-						<div>
-							<input  type="checkbox" id="deuteranopia" value="Deuteranopia">
-							<label for="deuteranopia">Deuteranopia</label>
-						</div>
-
-						<div>
-							<input  type="checkbox" id="protanopia" value="Protanopia">
-							<label for="protanopia">Protanopia</label>
-						</div>
-					</div>
-				</div>
-
-				<div class="optionsElement"  id="fonts">
-					<div class="button">
-						<label for="fontSize">Font size</label>
-						<input  type="text" id="fontSize" value="14" size="8">
-					</div>
-					<div class="button" id="fontFamily">
-						<label for="Family">Font family</label>
-						<select name="dropdown" id="Family">
-							<option value = "Arial">Arial</option>
-							<option value = "Comic Sans">Comic Sans</option>
-							<option value = "Impact">Impact</option>
-							<option value = "Times New Roman">Times New Roman</option>
-							<option value = "Verdana">Verdana</option>
-							<option value = "Courier New">Courier New</option>
-							<option value = "Candara">Candara</option>
-						</select>
-					</div>
-				</div>
-
-				<button class="button" style="float: right; margin-top: 10px " id="saveButton">Close</button>
+				<button id='run' onclick='loadView(id)'></button>
+				<button id="maven" onclick='loadView(id)'></button>
 			</div>
 		</div>
 
+		<!--<div id='terminalContainer' class='webviewContainer'></div> -->
+
+		<div class="optionsBox" style="display: none" id="optionsBox">
+			<div class="optionsElement" id="accessibilityBox">
+				<div class="button"  id="dyslexia">
+					<p>Do you have dyslexia?</p>
+					<div>
+						<input  type="checkbox" id="yes1" value="Yes">
+						<label for="yes1">Yes</label>
+					</div>
+				</div>
+
+				<div class="button" id="daltonism">
+					<p>Do you have daltonism?</p>
+					<div>
+						<input  type="checkbox" id="yes2" value="Yes">
+						<label for="yes2">Yes</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="optionsElement"  id="daltonismBox" style="display: none">
+				<p class="button">What kind of daltonism?</p>
+				<div class="button">
+					<div>
+						<input  type="checkbox" id="tripanopia" value="Tripanopia">
+						<label for="tripanopia">Tripanopia</label>
+					</div>
+
+					<div>
+						<input  type="checkbox" id="deuteranopia" value="Deuteranopia">
+						<label for="deuteranopia">Deuteranopia</label>
+					</div>
+
+					<div>
+						<input  type="checkbox" id="protanopia" value="Protanopia">
+						<label for="protanopia">Protanopia</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="optionsElement"  id="fonts">
+				<div class="button">
+					<label for="fontSize">Font size</label>
+					<input  type="text" id="fontSize" value="14" size="8">
+				</div>
+				<div class="button" id="fontFamily">
+					<label for="Family">Font family</label>
+					<select style="margin: auto" name="dropdown" id="Family">
+						<option value = "Arial">Arial</option>
+						<option value = "Comic Sans">Comic Sans</option>
+						<option value = "Impact">Impact</option>
+						<option value = "Times New Roman">Times New Roman</option>
+						<option value = "Verdana">Verdana</option>
+						<option value = "Courier New">Courier New</option>
+						<option value = "Candara">Candara</option>
+					</select>
+				</div>
+			</div>
+
+			<button class="button" style="float: right; margin-top: 10px " id="saveButton">Close</button>
+		</div>
 	</div>
+
+</div>
 
 </body>
 

@@ -1,3 +1,4 @@
+
 let config = {
     "font-family": "Arial",
     "font-size": 14,
@@ -7,7 +8,9 @@ let config = {
         "tripanopia": false,
         "deuteranopia": false,
         "protanopia": false
-    }}
+    },
+    "colortheme": 'light'
+}
 
 
 window.api.OpenFile((path, text) => {
@@ -36,7 +39,32 @@ window.api.Options(() => {
 
 window.api.Mode_th((args) => {
     changeTheme(args.toString())
+});
+
+let nb_delete = 0;
+var el = document.getElementById('markdown');
+el.addEventListener('keydown', function(event) {
+    // Checking for Backspace.
+    if (event.keyCode === 8) {
+        nb_delete += 1;
+    }
+    // Checking for Delete.
+    if (event.keyCode === 46) {
+        nb_delete += 1;
+    }
+});
+
+window.api.Save_nb((args) => {
+    console.log("Send Data2")
+    let ob = {delete2: nb_delete, timing: new Date().getTime()};
+    console.log(ob)
+    return ob;
 })
+
+window.api.Colortheme((args) => {
+    changeSyntaxColor(args)
+})
+
 
 function changeTheme(args){
     if (args === "light") {
@@ -104,10 +132,35 @@ function changeTheme(args){
     }
 }
 
+const changeSelected = (name) => {
+    const select = document.querySelector('#Family');
+    const options = Array.from(select.options);
+    const optionToSelect = options.find(item => item.text === name);
+    optionToSelect.selected = true;
+};
 
 let dyslexia = document.getElementById("yes1")
 dyslexia.oninput = function (){
     config["dyslexia"] = dyslexia.checked
+    if (config['dyslexia']){
+        changeTheme("dark")
+        let textArea = document.getElementsByTagName('textarea')
+        for (let i = 0; i < textArea.length; i++) {
+            textArea[i].style.fontSize = "20"
+            textArea[i].style.fontFamily = "Courier New"
+            changeSelected('Courier New')
+            document.getElementById('fontSize').setAttribute('value', '20')
+        }
+    }
+    else{
+        let textArea = document.getElementsByTagName('textarea')
+        for (let i = 0; i < textArea.length; i++) {
+            textArea[i].style.fontSize = config['font-size']
+            textArea[i].style.fontFamily = config['font-family']
+            changeSelected(config['font-family'])
+            document.getElementById('fontSize').setAttribute('value', config['font-size'])
+        }
+    }
 }
 
 let daltonism = document.getElementById("yes2")
@@ -117,6 +170,8 @@ daltonism.oninput = function (){
     {
         document.getElementById("daltonismBox").style.display = 'flex'
         document.getElementById('optionsBox').style.height = "500px";
+
+        changeTheme("light")
     }
     else
     {
@@ -128,6 +183,10 @@ daltonism.oninput = function (){
 let deutera = document.getElementById("deuteranopia")
 deutera.oninput = function (){
     config["daltonism-type"]["deuteranopia"] = deutera.checked
+    if (config["daltonism-type"]["deuteranopia"])
+        changeSyntaxColor('monokai')
+    else
+        changeSyntaxColor('dark')
 }
 
 let tripano = document.getElementById("tripanopia")
@@ -143,6 +202,19 @@ protano.oninput = function (){
 let fontSize = document.getElementById("fontSize")
 fontSize.oninput = function (){
     config["font-size"] = fontSize.value
+    let textArea = document.getElementsByTagName('textarea')
+    for (let i = 0; i < textArea.length; i++) {
+        textArea[i].style.fontSize = config['font-size']
+    }
+}
+
+let family = document.getElementById("Family")
+family.onchange = function () {
+    config["font-family"] = family.value
+    let textArea = document.getElementsByTagName('textarea')
+    for (let i = 0; i < textArea.length; i++) {
+        textArea[i].style.fontFamily = config['font-family']
+    }
 }
 
 document.getElementById("saveButton").addEventListener("click", () => {
@@ -156,17 +228,24 @@ document.getElementById("saveButton").addEventListener("click", () => {
         }
     }
     else if (config["dyslexia"]){
-        changeTheme("light")
-        let textArea = document.getElementsByTagName('textarea')
-        for (let i = 0; i < textArea.length; i++) {
-            textArea[i].style.fontSize = config['font-size']
-            textArea[i].style.fontFamily = config['font-family']
-        }
     }
 })
 
-let family = document.getElementById("Family")
-family.onchange = function (){
-    config["font-family"] = family.value
+function changeSyntaxColor(theme){
+    (async ({chrome, netscape}) => {
+        // add Safari polyfill if needed
+        if (!chrome && !netscape)
+            await import('https://unpkg.com/@ungap/custom-elements');
+
+        const {default: HighlightedCode} =
+            await import('https://unpkg.com/highlighted-code');
+
+        // bootstrap a theme through one of these names
+        // https://github.com/highlightjs/highlight.js/tree/main/src/styles
+        HighlightedCode.useTheme(theme);
+        changeTheme(config["colortheme"])
+    })(self);
 }
+
+changeTheme(config['colortheme'])
 

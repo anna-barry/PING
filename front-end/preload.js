@@ -1,6 +1,5 @@
 const { app, BrowserWindow, ipcRenderer, contextBridge} = require('electron')
 const fs = require("fs");
-//const {resolveUrl} = require("marked/src/helpers");
 
 const API = {
     OpenFile : (callback) => ipcRenderer.on("FILE_OPEN", (events, args) =>
@@ -19,6 +18,15 @@ const API = {
     Mode_th : (callback) => ipcRenderer.on("MODE", (event , args) =>
         {
             callback(args);
+        }
+    ),
+    Save_nb: (callback) => ipcRenderer.on("SAVE_NB", async (event, args) => {
+            let saving = callback(args);
+            console.log("saving");
+            console.log(saving)
+           let string_tmp = "" + saving.delete2+" "+ saving.timing+ "\n";
+            console.log(string_tmp)
+            await fs.promises.appendFile("tmp_json.txt", string_tmp);
         }
     ),
     Other : (callback) => ipcRenderer.on("OTHER", (event, args) =>
@@ -54,6 +62,12 @@ const API = {
     Options : (callback) => ipcRenderer.on("OPTIONS", (event, args) =>
         {
             callback();
+        }
+    ),
+
+    Colortheme : (callback) => ipcRenderer.on("COLORTHEME", (event, args) =>
+        {
+            callback(args);
         }
     ),
 }
