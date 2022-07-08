@@ -1,8 +1,6 @@
 package fr.epita.assistants.server;
 
 import com.sun.net.httpserver.HttpExchange;
-import fr.epita.assistants.server.MyHttpException;
-import fr.epita.assistants.server.Utils;
 
 import java.util.regex.Pattern;
 

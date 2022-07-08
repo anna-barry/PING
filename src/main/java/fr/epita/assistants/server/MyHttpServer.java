@@ -1,10 +1,6 @@
 package fr.epita.assistants.server;
 
 import com.sun.net.httpserver.HttpServer;
-import fr.epita.assistants.server.JsonObject;
-import fr.epita.assistants.server.MyHttpException;
-import fr.epita.assistants.server.Response;
-import fr.epita.assistants.server.Utils;
 
 import java.io.IOException;
 import java.io.OutputStream;
