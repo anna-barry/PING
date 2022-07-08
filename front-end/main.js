@@ -45,7 +45,7 @@ let menu_final =  [
             window.webContents.send('FILE_OPEN', path_open);
           }
         },
-        accelerator:'CmdOrCtrl+O',
+        accelerator:'CmdOrCtrl+P',
       },
       {
         label: 'Open Directory',
@@ -89,7 +89,8 @@ let menu_final =  [
         label: "Options",
         click: async () => {
           window.webContents.send("OPTIONS")
-        }
+        },
+        accelerator: 'Ctrl+O',
       },
     ]},
   // { role: 'editMenu' }

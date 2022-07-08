@@ -104,10 +104,35 @@ function changeTheme(args){
     }
 }
 
+const changeSelected = (name) => {
+    const select = document.querySelector('#Family');
+    const options = Array.from(select.options);
+    const optionToSelect = options.find(item => item.text === name);
+    optionToSelect.selected = true;
+};
 
 let dyslexia = document.getElementById("yes1")
 dyslexia.oninput = function (){
     config["dyslexia"] = dyslexia.checked
+    if (config['dyslexia']){
+        changeTheme("dark")
+        let textArea = document.getElementsByTagName('textarea')
+        for (let i = 0; i < textArea.length; i++) {
+            textArea[i].style.fontSize = "20"
+            textArea[i].style.fontFamily = "Courier New"
+            changeSelected('Courier New')
+            document.getElementById('fontSize').setAttribute('value', '20')
+        }
+    }
+    else{
+        let textArea = document.getElementsByTagName('textarea')
+        for (let i = 0; i < textArea.length; i++) {
+            textArea[i].style.fontSize = config['font-size']
+            textArea[i].style.fontFamily = config['font-family']
+            changeSelected(config['font-family'])
+            document.getElementById('fontSize').setAttribute('value', config['font-size'])
+        }
+    }
 }
 
 let daltonism = document.getElementById("yes2")
@@ -117,6 +142,8 @@ daltonism.oninput = function (){
     {
         document.getElementById("daltonismBox").style.display = 'flex'
         document.getElementById('optionsBox').style.height = "500px";
+
+        changeTheme("light")
     }
     else
     {
@@ -143,6 +170,19 @@ protano.oninput = function (){
 let fontSize = document.getElementById("fontSize")
 fontSize.oninput = function (){
     config["font-size"] = fontSize.value
+    let textArea = document.getElementsByTagName('textarea')
+    for (let i = 0; i < textArea.length; i++) {
+        textArea[i].style.fontSize = config['font-size']
+    }
+}
+
+let family = document.getElementById("Family")
+family.onchange = function () {
+    config["font-family"] = family.value
+    let textArea = document.getElementsByTagName('textarea')
+    for (let i = 0; i < textArea.length; i++) {
+        textArea[i].style.fontSize = config['font-family']
+    }
 }
 
 document.getElementById("saveButton").addEventListener("click", () => {
@@ -156,17 +196,7 @@ document.getElementById("saveButton").addEventListener("click", () => {
         }
     }
     else if (config["dyslexia"]){
-        changeTheme("light")
-        let textArea = document.getElementsByTagName('textarea')
-        for (let i = 0; i < textArea.length; i++) {
-            textArea[i].style.fontSize = config['font-size']
-            textArea[i].style.fontFamily = config['font-family']
-        }
     }
 })
 
-let family = document.getElementById("Family")
-family.onchange = function (){
-    config["font-family"] = family.value
-}
 
